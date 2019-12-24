@@ -11,7 +11,10 @@ TimeShield::TimeShield(sf::Sprite& sprite) {
 }
 
 void TimeShield::impact() {
-    duration--;
+    if(duration == 0)
+        duration = 0;
+    else
+        duration--;
 }
 
 void TimeShield::update() {

@@ -13,7 +13,7 @@ void Pause::init() {
         text[i].setFillColor(sf::Color::White);
         text[i].setCharacterSize(60);
     }
-    text[0].setPosition(50, (float)sf::VideoMode::getDesktopMode().height/4);
+    text[0].setPosition(50, (float)800/4);
     text[1].setPosition(50, text[0].getPosition().y + 90); //power up
     text[2].setPosition(50,text[1].getPosition().y + 75); //power up
     text[3].setPosition(50, text[2].getPosition().y+100);

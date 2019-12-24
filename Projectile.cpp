@@ -18,6 +18,6 @@ void Projectile::updatePosition() {
     xPos += dx;
     yPos += dy;
 
-    if((xPos < 0) || (xPos > (float)sf::VideoMode::getDesktopMode().width) || (yPos < 0) || (yPos > (float)sf::VideoMode::getDesktopMode().height))
+    if((xPos < 0) || (xPos > 1280) || (yPos < 0) || (yPos > 800))
         hp = 0;
 }

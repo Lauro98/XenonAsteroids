@@ -14,7 +14,7 @@ void MainMenu::init() {
         text[i].setFillColor(sf::Color::White);
         text[i].setCharacterSize(70);
         float j = i + 1;
-        text[i].setPosition(50, (float)sf::VideoMode::getDesktopMode().height/(j+1)*j);
+        text[i].setPosition(50, (float)800/(j+1)*j);
     }
     text[0].setString("Play");
     text[1].setString("Settings");

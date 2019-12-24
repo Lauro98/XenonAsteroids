@@ -9,8 +9,8 @@ enum ShipType {lennon, macca, harrison, starr};
 
 class Spaceship: public Entity {
 private:
-    bool isBoosting;
-    bool isShooting;
+    bool boosting;
+    bool shooting;
     float maxSpeed;
     float fireRate;
     float accel;
@@ -21,11 +21,11 @@ public:
     Spaceship(TextureManager& textureManager, ShipType shipType);
     ~Spaceship() override;
     void updatePosition() override;
-    void setBoosting(bool isBoosting);
-    void setShooting(bool isShooting);
+    void setBoosting(bool boosting);
+    void setShooting(bool shooting);
     void setDefenceStrategy(DefStrategyType type);
     DefenceStrategy* getDefenceStrategy();
-    bool getShooting();
+    bool isShooting();
     float getFireRate();
     void turnLeft();
     void turnRight();

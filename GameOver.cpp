@@ -15,7 +15,7 @@ void GameOver::init() {
         text[i].setFillColor(sf::Color::Black);
         text[i].setCharacterSize(70);
         float j = i + 1;
-        text[i].setPosition(300, (float)sf::VideoMode::getDesktopMode().height/(j+1)*j);
+        text[i].setPosition(300, 800/(j+1)*j);
     }
     text[0].setString("Play Again");
     text[1].setString("Return to Main Menu");

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <utility>
 #include "Entity.h"
 
 void Entity::draw(sf::RenderWindow &gameWindow) {

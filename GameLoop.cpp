@@ -9,7 +9,7 @@
 GameLoop::GameLoop(GameDataRef dataRef) {
     data = std::move(dataRef);
     data->panel = {data->font, data->textureManager};
-    isGameOver = false;
+    gameOver = false;
 }
 
 GameLoop::~GameLoop() {
@@ -32,13 +32,13 @@ void GameLoop::handleInput() {
     while (data->renderWindow.pollEvent(event)) {
         if (event.type == sf::Event::EventType::Closed)
             data->renderWindow.close();
-        if(event.type == sf::Event::KeyPressed && !isGameOver){
+        if(event.type == sf::Event::KeyPressed && !gameOver){
             if(event.key.code == sf::Keyboard::S)
                 data->spaceship.getDefenceStrategy()->activateShield();
         }
 
     }
-    if (!isGameOver) {
+    if (!gameOver) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             data->spaceship.turnLeft();
 
@@ -72,14 +72,14 @@ void GameLoop::handleInput() {
 }
 
 void GameLoop::update() {
-    if (asteroidsGen.getElapsedTime().asSeconds() >= 10 && !isGameOver) {
+    if (asteroidsGen.getElapsedTime().asSeconds() >= 10 && !gameOver) {
         entities.emplace_back(new Asteroid(data->textureManager));
         data->panel.addPoints(5);
         asteroidsGen.restart();
     }
 
-    if (shootClock.getElapsedTime().asSeconds() >= data->spaceship.getFireRate() && data->spaceship.getShooting() &&
-        !isGameOver) {
+    if (shootClock.getElapsedTime().asSeconds() >= data->spaceship.getFireRate() && data->spaceship.isShooting() &&
+        !gameOver) {
         shootClock.restart();
         entities.emplace_back(new Projectile(data->textureManager, data->spaceship));
         data->panel.addPoints(-2);
@@ -96,7 +96,7 @@ void GameLoop::update() {
     data->spaceship.getDefenceStrategy()->update();
     data->panel.setShieldText(data->spaceship.getDefenceStrategy()->getShieldLife());
 
-    if (!isGameOver) {
+    if (!gameOver) {
         for (int i = 0; i < entities.size(); i++) {
             for (int j = 0; j < entities.size(); j++) {
                 if (entities.at(i)->getType() == EntityType::projectile &&
@@ -133,12 +133,12 @@ void GameLoop::update() {
                     entities.emplace_back(new Explosion(data->textureManager, data->spaceship));
                     entities.emplace_back(new Explosion(data->textureManager, *entities.at(i)));
                     entities.at(i)->setHp(0);
-                    isGameOver = true;
+                    gameOver = true;
                 }
             }
         }
         if (data->spaceship.getDefenceStrategy()->getType() != none &&
-            data->spaceship.getDefenceStrategy()->isVisible()) {
+            data->spaceship.getDefenceStrategy()->isVisible() && entities.at(i)->getType() != EntityType::projectile) {
             if (Collision::PixelPerfectTest(entities.at(i)->getSprite(),
                                             data->spaceship.getDefenceStrategy()->getShieldSprite())) {
                 if (entities.at(i)->getType() == EntityType::asteroid) {
@@ -152,7 +152,7 @@ void GameLoop::update() {
             }
         }
     }
-    if (isGameOver && entities.at(entities.size()-1)->getAnimation().isEndOfAnim()) {
+    if (gameOver && entities.at(entities.size()-1)->getAnimation().isEndOfAnim()) {
         data->stateManager.addState(StateRef(new GameOver(data)), true);
     }
 }
@@ -161,9 +161,9 @@ void GameLoop::update() {
 void GameLoop::draw() {
     data->renderWindow.clear();
     data->renderWindow.draw(background);
-    if(!isGameOver)
+    if(!gameOver)
         data->spaceship.draw(data->renderWindow);
-    if(data->spaceship.getDefenceStrategy()->getType() != none && data->spaceship.getDefenceStrategy()->isVisible() && !isGameOver)
+    if(data->spaceship.getDefenceStrategy()->getType() != none && data->spaceship.getDefenceStrategy()->isVisible() && !gameOver)
         data->spaceship.getDefenceStrategy()->draw(data->spaceship.getSprite(), data->renderWindow);
     for(int i = 0; i < entities.size(); i++)
         if(entities.at(i)->getHp())

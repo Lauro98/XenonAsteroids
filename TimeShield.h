@@ -7,7 +7,7 @@
 class TimeShield: public DefenceStrategy {
 private:
     sf::Clock clock;
-    unsigned int duration;
+    int duration;
 public:
     explicit TimeShield(sf::Sprite& sprite);
     void addShield() override;

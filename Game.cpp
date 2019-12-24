@@ -3,7 +3,7 @@
 #include "Splash.h"
 
 Game::Game() {
-    data->renderWindow.create(sf::VideoMode(1280,800), "Xenon", sf::Style::None);
+    data->renderWindow.create(sf::VideoMode(1280,800), "Xenon", sf::Style::Default);
     data->renderWindow.setMouseCursorVisible(false);
     if(!data->font.loadFromFile("media/PIXELADE.TTF"))
         std::cout << "error opening font\n";

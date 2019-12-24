@@ -12,12 +12,15 @@ void Splash::handleInput() {
     while(data->renderWindow.pollEvent(event)){
         if(event.type == sf::Event::Closed)
             data->renderWindow.close();
+        if(event.type == sf::Event::KeyPressed)
+            if(event.key.code == sf::Keyboard::Space)
+                data->stateManager.addState(StateRef(new MainMenu(data)), true);
     }
 }
 
 void Splash::update() {
     if(clock.getElapsedTime().asSeconds() > 3.f){
-        data->stateManager.addState(StateRef(new MainMenu(data)), true);
+        background.setTexture(data->textureManager.getTextureFromAtlas("commands"));
     }
 }
 

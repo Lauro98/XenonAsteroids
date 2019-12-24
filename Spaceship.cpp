@@ -11,8 +11,8 @@ Spaceship::Spaceship() {
 
 Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
-    xPos=((float)sf::VideoMode::getDesktopMode().width - sprite.getLocalBounds().width)/2;
-    yPos=((float)sf::VideoMode::getDesktopMode().height - sprite.getLocalBounds().height)/2;
+    xPos=((float)1280 - sprite.getLocalBounds().width)/2;
+    yPos=((float)800 - sprite.getLocalBounds().height)/2;
     sprite.setPosition(xPos, yPos);
     switch(shipType){
         case lennon:
@@ -49,8 +49,8 @@ Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
             break;
 
     }
-    isBoosting=false;
-    isShooting=false;
+    boosting=false;
+    shooting=false;
     hp=1;
     angle=-90;
     this->type = EntityType::spaceship;
@@ -60,7 +60,7 @@ Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
 
 void Spaceship::updatePosition() {
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
-    if(isBoosting){
+    if(boosting){
         if(sprite.getTextureRect().left != sprite.getTextureRect().width) {
             animation = {sprite, sprite.getTextureRect().width, 0, sprite.getTextureRect().width,
                          sprite.getTextureRect().height, 1, 0};
@@ -88,17 +88,17 @@ void Spaceship::updatePosition() {
     }
 
     if(xPos<0)
-        xPos = (float)sf::VideoMode::getDesktopMode().width;
-    if(xPos>(float)sf::VideoMode::getDesktopMode().width)
+        xPos = 1280;
+    if(xPos>1280)
         xPos=0;
     if(yPos<0)
-        yPos = (float)sf::VideoMode::getDesktopMode().height;
-    if(yPos>(float)sf::VideoMode::getDesktopMode().height)
+        yPos = 800;
+    if(yPos>800)
         yPos=0;
 }
 
 void Spaceship::setBoosting(bool boost) {
-    this->isBoosting=boost;
+    boosting=boost;
 }
 
 float Spaceship::getFireRate() {
@@ -115,12 +115,12 @@ void Spaceship::turnLeft() {
     angle -= bend;
 }
 
-void Spaceship::setShooting(bool isShooting) {
-    this->isShooting = isShooting;
+void Spaceship::setShooting(bool shooting) {
+    this->shooting = shooting;
 }
 
-bool Spaceship::getShooting() {
-    return isShooting;
+bool Spaceship::isShooting() {
+    return shooting;
 }
 
 void Spaceship::setDefenceStrategy(DefStrategyType type) {

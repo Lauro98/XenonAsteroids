@@ -11,13 +11,13 @@ class StateManager {
 private:
     std::stack<StateRef> states;
     StateRef newState;
-    bool isAdding;
-    bool isReplacing;
-    bool isRemoving;
+    bool adding;
+    bool replacing;
+    bool removing;
 public:
     StateManager();
     ~StateManager();
-    void addState(StateRef newState, bool isReplacing);
+    void addState(StateRef newState, bool replacing);
     void popState();
     void makeChanges();
     StateRef &getActiveState();

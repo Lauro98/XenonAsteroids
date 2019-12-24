@@ -13,16 +13,16 @@ void SelectSpaceShip::init() {
     background.setTexture(data->textureManager.getTextureFromAtlas("menu"));
     ship[0].setTexture(data->textureManager.getTextureFromAtlas("lennon"));
     ship[0].setTextureRect(sf::IntRect(0,0,58,79));
-    ship[0].setPosition((float)sf::VideoMode::getDesktopMode().width/5*1, (float)sf::VideoMode::getDesktopMode().height/3);
+    ship[0].setPosition((float)1280/5*1, (float)800/3);
     ship[1].setTexture(data->textureManager.getTextureFromAtlas("macca"));
     ship[1].setTextureRect(sf::IntRect(0,0,36,66));
-    ship[1].setPosition((float)sf::VideoMode::getDesktopMode().width/5*2, (float)sf::VideoMode::getDesktopMode().height/3);
+    ship[1].setPosition((float)1280/5*2, (float)800/3);
     ship[2].setTexture(data->textureManager.getTextureFromAtlas("harrison"));
     ship[2].setTextureRect(sf::IntRect(0,0,52,66));
-    ship[2].setPosition((float)sf::VideoMode::getDesktopMode().width/5*3, (float)sf::VideoMode::getDesktopMode().height/3);
+    ship[2].setPosition((float)1280/5*3, (float)800/3);
     ship[3].setTexture(data->textureManager.getTextureFromAtlas("starr"));
     ship[3].setTextureRect(sf::IntRect(0,0,32,44));
-    ship[3].setPosition((float)sf::VideoMode::getDesktopMode().width/5*4, (float)sf::VideoMode::getDesktopMode().height/3);
+    ship[3].setPosition((float)1280/5*4, (float)800/3);
     for(int i=0; i<4; i++) {
         name[i].setFont(data->font);
         name[i].setCharacterSize(40);

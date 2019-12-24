@@ -20,7 +20,7 @@ private:
     std::vector<Entity*> entities;
     sf::Sprite background;
     GameDataRef data;
-    bool isGameOver;
+    bool gameOver;
 
 public:
     GameLoop(GameDataRef data);

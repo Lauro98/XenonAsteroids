@@ -2,6 +2,7 @@
 
 TextureManager::TextureManager() {
     loadTexture("background", "media/background.jpg");
+    loadTexture("commands", "media/commands.png");
     loadTexture("explosion", "media/explosion.png");
     loadTexture("game_over", "media/GameOver.png");
     loadTexture("harrison", "media/harrison.png");
