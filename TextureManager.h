@@ -1,7 +1,6 @@
 #ifndef XENON_TEXTUREMANAGER_H
 #define XENON_TEXTUREMANAGER_H
 
-
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
 #include <map>

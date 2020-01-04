@@ -1,0 +1,7 @@
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/CMakeFiles/runAllTests.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/lib/googletest/CMakeFiles/rebuild_cache.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/lib/googletest/CMakeFiles/edit_cache.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/lib/googletest/CMakeFiles/gtest_main.dir
+/Users/lauro/CLionProjects/XenonAsteroids/unit_test/cmake-build-debug/lib/googletest/CMakeFiles/gtest.dir

@@ -1,4 +1,5 @@
 #include "TimeShield.h"
+#include "Definitions.h"
 
 TimeShield::TimeShield(sf::Sprite& sprite) {
     textureShield.loadFromFile("media/time_shield.png");
@@ -6,7 +7,7 @@ TimeShield::TimeShield(sf::Sprite& sprite) {
     shield.setPosition(sprite.getPosition());
     shieldTerminated = false;
     visible = false;
-    duration = 3;
+    duration = TIME_SHIELD_BASE_DURATION;
     type=timeShield;
 }
 
@@ -29,7 +30,7 @@ void TimeShield::update() {
 }
 
 void TimeShield::addShield() {
-    duration +=2;
+    duration += ADD_TIME_SHIELD_DURATION;
 }
 
 void TimeShield::activateShield() {

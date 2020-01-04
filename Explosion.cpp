@@ -1,4 +1,5 @@
 #include "Explosion.h"
+#include "Definitions.h"
 
 Explosion::Explosion(TextureManager& textureManager, Entity& entity) {
     dx=0;
@@ -7,13 +8,13 @@ Explosion::Explosion(TextureManager& textureManager, Entity& entity) {
     hp=1;
 
     sprite.setOrigin(0,0);
-    xPos = entity.getXPos()+100;
-    yPos = entity.getYPos()-50;
+    xPos = entity.getXPos()+ROCK_SPRITE_WIDTH*2;
+    yPos = entity.getYPos()-ROCK_SPRITE_HEIGTH*2;
     sprite.setTexture(textureManager.getTextureFromAtlas("explosion"));
     if(entity.getType() != EntityType::spaceship)
-        animation = {sprite, -256, 0, 256, 256, 48, 1};
+        animation = {sprite, -EXPLOSION_SPRITE_WIDTH, 0, EXPLOSION_SPRITE_WIDTH, EXPLOSION_SPRITE_HEIGHT, EXPLOSION_SPRITESHEET, NORMAL_EXPLOSION_ANIM_SPEED};
     else
-        animation = {sprite, -256, 0, 256, 256, 48, 0.25};
+        animation = {sprite, -EXPLOSION_SPRITE_WIDTH, 0, EXPLOSION_SPRITE_WIDTH, EXPLOSION_SPRITE_HEIGHT, EXPLOSION_SPRITESHEET, SLOW_EXPLOSION_ANIM_SPEED};
 
 }
 

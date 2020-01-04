@@ -1,7 +1,7 @@
 #include "SelectSpaceShip.h"
 #include "Spaceship.h"
 #include "GameLoop.h"
-
+#include "Definitions.h"
 #include <utility>
 #include <iostream>
 
@@ -12,17 +12,17 @@ void SelectSpaceShip::init() {
 
     background.setTexture(data->textureManager.getTextureFromAtlas("menu"));
     ship[0].setTexture(data->textureManager.getTextureFromAtlas("lennon"));
-    ship[0].setTextureRect(sf::IntRect(0,0,58,79));
-    ship[0].setPosition((float)1280/5*1, (float)800/3);
+    ship[0].setTextureRect(sf::IntRect(0,0,LENNON_SPRITE_WIDTH, LENNON_SPRITE_HEIGHT));
+    ship[0].setPosition((float)WINDOW_WIDTH/5*1, (float)WINDOW_HEIGHT/3);
     ship[1].setTexture(data->textureManager.getTextureFromAtlas("macca"));
-    ship[1].setTextureRect(sf::IntRect(0,0,36,66));
-    ship[1].setPosition((float)1280/5*2, (float)800/3);
+    ship[1].setTextureRect(sf::IntRect(0,0,MACCA_SPRITE_WIDTH, MACCA_SPRITE_HEIGHT));
+    ship[1].setPosition((float)WINDOW_WIDTH/5*2, (float)WINDOW_HEIGHT/3);
     ship[2].setTexture(data->textureManager.getTextureFromAtlas("harrison"));
-    ship[2].setTextureRect(sf::IntRect(0,0,52,66));
-    ship[2].setPosition((float)1280/5*3, (float)800/3);
+    ship[2].setTextureRect(sf::IntRect(0,0,HARRISON_SPRITE_WIDTH, HARRISON_SPRITE_HEIGHT));
+    ship[2].setPosition((float)WINDOW_WIDTH/5*3, (float)WINDOW_HEIGHT/3);
     ship[3].setTexture(data->textureManager.getTextureFromAtlas("starr"));
-    ship[3].setTextureRect(sf::IntRect(0,0,32,44));
-    ship[3].setPosition((float)1280/5*4, (float)800/3);
+    ship[3].setTextureRect(sf::IntRect(0,0,STARR_SPRITE_WIDTH, STARR_SPRITE_HEIGHT));
+    ship[3].setPosition((float)WINDOW_WIDTH/5*4, (float)WINDOW_HEIGHT/3);
     for(int i=0; i<4; i++) {
         name[i].setFont(data->font);
         name[i].setCharacterSize(40);
@@ -97,7 +97,7 @@ void SelectSpaceShip::update() {
         if(i != selectedItemIndex)
             ship[i].setRotation(0);
     }
-    ship[selectedItemIndex].rotate(0.5);
+    ship[selectedItemIndex].rotate(ROTATION_RATIO);
 }
 
 void SelectSpaceShip::draw() {

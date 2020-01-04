@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Game.h"
 #include "Splash.h"
+#include "Definitions.h"
 
 Game::Game() {
-    data->renderWindow.create(sf::VideoMode(1280,800), "Xenon", sf::Style::Default);
+    dt = FRAME_TIME;
+    data->renderWindow.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Xenon", sf::Style::Default);
     data->renderWindow.setMouseCursorVisible(false);
     if(!data->font.loadFromFile("media/PIXELADE.TTF"))
         std::cout << "error opening font\n";
@@ -20,8 +22,8 @@ void Game::run() {
         data->stateManager.makeChanges();
         newTime = gameClock.getElapsedTime().asSeconds();
         frameTime = newTime - currentTime;
-        if(frameTime > 0.25f)
-            frameTime = 0.25f;
+        if(frameTime > FRAME_DELAY)
+            frameTime = FRAME_DELAY;
         currentTime = newTime;
         accumulator += frameTime;
         while(accumulator >= dt){

@@ -17,10 +17,9 @@ typedef std::shared_ptr<GameData> GameDataRef;
 
 class Game {
 private:
-    const float dt = 1.f/60.f;
+    float dt;
     sf::Clock gameClock;
-    GameDataRef data = std::make_shared<GameData>(); //constructs an object of type T passing args to its constructor,
-                                                    // and returns an object of type shared_ptr<T> that owns and stores a pointer to it
+    GameDataRef data = std::make_shared<GameData>();
 public:
     Game();
 

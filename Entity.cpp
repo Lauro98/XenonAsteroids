@@ -43,7 +43,3 @@ float Entity::getAngle() {
 EntityType Entity::getType() {
     return type;
 }
-
-Entity::~Entity() {
-
-}

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Panel.h"
+#include "Definitions.h"
 
 Panel::Panel() {
 
@@ -8,7 +9,7 @@ Panel::Panel() {
 Panel::Panel(const sf::Font& font, TextureManager& textureManager) {
     shieldIco.setOrigin(0,0);
     shieldIco.setTexture(textureManager.getTextureFromAtlas("shieldIco"));
-    shieldIco.setPosition(1050,10);
+    shieldIco.setPosition(SHIELD_ICO_AXIS, PANEL_ORD);
 
     shieldText.setOrigin(0,0);
     shieldText.setPosition(shieldIco.getPosition().x+50,11);
@@ -18,7 +19,7 @@ Panel::Panel(const sf::Font& font, TextureManager& textureManager) {
     shieldText.setString("0");
 
     scoreText.setOrigin(0,0);
-    scoreText.setPosition(50,10);
+    scoreText.setPosition(SCORE_AXIS,PANEL_ORD);
     scoreText.setFont(font);
     scoreText.setFillColor(sf::Color::White);
     scoreText.setCharacterSize(50);

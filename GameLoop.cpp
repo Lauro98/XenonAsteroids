@@ -1,5 +1,5 @@
 #include "GameLoop.h"
-
+#include "Definitions.h"
 #include <utility>
 #include <iostream>
 #include "Asteroid.h"
@@ -20,7 +20,7 @@ GameLoop::~GameLoop() {
 
 
 void GameLoop::init() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < INITIAL_ASTEROIDS; i++) {
         entities.emplace_back(new Asteroid(data->textureManager));
     }
     background.setTexture(data->textureManager.getTextureFromAtlas("background"));
@@ -56,9 +56,9 @@ void GameLoop::handleInput() {
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
-            if (asteroidsGen.getElapsedTime().asSeconds() >= data->spaceship.getFireRate()) {
+            if (shootClock.getElapsedTime().asSeconds() >= data->spaceship.getFireRate()) {
                 data->spaceship.setShooting(true);
-                asteroidsGen.restart();
+                shootClock.restart();
             }
         }
         if (!sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
@@ -72,17 +72,15 @@ void GameLoop::handleInput() {
 }
 
 void GameLoop::update() {
-    if (asteroidsGen.getElapsedTime().asSeconds() >= 10 && !gameOver) {
+    if (asteroidsGen.getElapsedTime().asSeconds() >= ASTEROID_GEN_TIME && !gameOver) {
         entities.emplace_back(new Asteroid(data->textureManager));
-        data->panel.addPoints(5);
+        data->panel.addPoints(POINT_BONUS);
         asteroidsGen.restart();
     }
 
-    if (shootClock.getElapsedTime().asSeconds() >= data->spaceship.getFireRate() && data->spaceship.isShooting() &&
-        !gameOver) {
-        shootClock.restart();
+    if (data->spaceship.isShooting() && !gameOver) {
         entities.emplace_back(new Projectile(data->textureManager, data->spaceship));
-        data->panel.addPoints(-2);
+        data->panel.addPoints(POINT_MALUS);
     }
 
     for (int i = 0; i < entities.size(); i++) {
@@ -107,7 +105,7 @@ void GameLoop::update() {
                         entities.emplace_back(new Asteroid(data->textureManager, *entities.at(j)));
                         entities.at(i)->setHp(0);
                         entities.at(j)->setHp(0);
-                        data->panel.addPoints(10);
+                        data->panel.addPoints(ASTEROID_EXPL);
                     }
                 }
                 if (entities.at(i)->getType() == EntityType::projectile &&
@@ -116,7 +114,7 @@ void GameLoop::update() {
                         entities.emplace_back(new Explosion(data->textureManager, *entities.at(j)));
                         entities.at(i)->setHp(0);
                         entities.at(j)->setHp(0);
-                        data->panel.addPoints(7);
+                        data->panel.addPoints(RUBBLE_EXPL);
                     }
                 }
             }
@@ -147,7 +145,7 @@ void GameLoop::update() {
                 }
                 entities.emplace_back(new Explosion(data->textureManager, *entities.at(i)));
                 entities.at(i)->setHp(0);
-                data->panel.addPoints(-1);
+                data->panel.addPoints(POINT_MALUS);
                 data->spaceship.getDefenceStrategy()->impact();
             }
         }

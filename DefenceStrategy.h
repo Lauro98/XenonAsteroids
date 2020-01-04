@@ -17,7 +17,7 @@ protected:
     bool shieldTerminated;
     DefStrategyType type;
 public:
-    virtual ~DefenceStrategy();
+    virtual ~DefenceStrategy() = default;
     virtual bool isVisible();
     virtual bool isShieldTerminated();
     virtual sf::Sprite& getShieldSprite();

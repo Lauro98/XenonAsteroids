@@ -2,18 +2,20 @@
 #include "Pause.h"
 #include "MainMenu.h"
 #include "ToggableShield.h"
+#include "Definitions.h"
 
 Pause::Pause(GameDataRef dataRef): data(std::move(dataRef)){
 }
 
 void Pause::init() {
+
     background.setTexture(data->textureManager.getTextureFromAtlas("pause"));
     for(int i=0; i<5; i++){
         text[i].setFont(data->font);
         text[i].setFillColor(sf::Color::White);
         text[i].setCharacterSize(60);
     }
-    text[0].setPosition(50, (float)800/4);
+    text[0].setPosition(50, (float)WINDOW_HEIGHT/4);
     text[1].setPosition(50, text[0].getPosition().y + 90); //power up
     text[2].setPosition(50,text[1].getPosition().y + 75); //power up
     text[3].setPosition(50, text[2].getPosition().y+100);
@@ -21,8 +23,8 @@ void Pause::init() {
     text[5].setPosition(50, text[4].getPosition().y + 75);
 
     text[0].setString("Resume");
-    text[1].setString("Buy Toggable Shield    30p");
-    text[2].setString("Buy Time Shield        30p");
+    text[1].setString(BUY_TOGG_SHIELD_STRING);
+    text[2].setString(BUY_TIME_SHIELD_STRING);
     text[3].setString("Settings");
     text[4].setString("Go to Main Menu");
     text[0].setFillColor(sf::Color::Red);
@@ -48,26 +50,29 @@ void Pause::handleInput() {
                                 data->stateManager.popState();
                                 break;
                             case 1:
-                                if(data->panel.getScore() >= 5) {
+                                if(data->panel.getScore() >= TOGGABLE_SHIELD_COST) {
                                     if(data->spaceship.getDefenceStrategy()->getType() != toggableShield) {
                                         data->spaceship.setDefenceStrategy(toggableShield);
-                                        data->panel.addPoints(-5);
+                                        data->panel.addPoints(-TOGGABLE_SHIELD_COST);
                                         break;
                                     }
                                     else {
                                         data->spaceship.getDefenceStrategy()->addShield();
-                                        data->panel.addPoints(-5);
+                                        data->panel.addPoints(-ADD_TOGGABLE_SHIELD_COST);
                                         break;
                                     }
                                 }
                                 break;
                             case 2:
-                                if(data->panel.getScore() >= 5) {
-                                    if(data->spaceship.getDefenceStrategy()->getType() != timeShield)
+                                if(data->panel.getScore() >= TIME_SHIELD_COST) {
+                                    if(data->spaceship.getDefenceStrategy()->getType() != timeShield) {
                                         data->spaceship.setDefenceStrategy(timeShield);
-                                    else
+                                        data->panel.addPoints(-TIME_SHIELD_COST);
+                                    }
+                                    else {
                                         data->spaceship.getDefenceStrategy()->addShield();
-                                    data->panel.addPoints(-5);
+                                        data->panel.addPoints(-ADD_TIME_SHIELD_COST);
+                                    }
                                 }
                                 break;
                             case 3:
@@ -86,13 +91,13 @@ void Pause::handleInput() {
 void Pause::update() {
     data->panel.setShieldText(data->spaceship.getDefenceStrategy()->getShieldLife());
     if(data->spaceship.getDefenceStrategy()->getType() == toggableShield)
-        text[1].setString("Add a Toggable Shield  5p");
+        text[1].setString(ADD_TOGG_SHIELD_STRING);
     else
-        text[1].setString("Buy Toggable Shield    5p");
+        text[1].setString(BUY_TOGG_SHIELD_STRING);
     if(data->spaceship.getDefenceStrategy()->getType() == timeShield)
-        text[2].setString("Buy 2 seconds more     5p");
+        text[2].setString(ADD_TIME_SHIELD_STRING);
     else
-        text[2].setString("Buy Time Shield        5p");
+        text[2].setString(BUY_TIME_SHIELD_STRING);
 }
 
 void Pause::draw() {

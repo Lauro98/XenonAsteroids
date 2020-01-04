@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "TextureManager.h"
 
-#define radians 0.0174533
+
 
 enum class EntityType {spaceship, asteroid, rubble, projectile};
 
@@ -19,7 +19,7 @@ protected:
     Animation animation;
     EntityType type;
 public:
-    virtual ~Entity();
+    virtual ~Entity() = default;
     virtual void updatePosition() = 0;
     void draw(sf::RenderWindow &gameWindow);
     void setHp(unsigned int hp);

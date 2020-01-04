@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 #include "SelectSpaceShip.h"
-
+#include "Definitions.h"
 #include <utility>
 #include <iostream>
 
@@ -14,7 +14,7 @@ void MainMenu::init() {
         text[i].setFillColor(sf::Color::White);
         text[i].setCharacterSize(70);
         float j = i + 1;
-        text[i].setPosition(50, (float)800/(j+1)*j);
+        text[i].setPosition(50, (float)WINDOW_HEIGHT/(j+1)*j);
     }
     text[0].setString("Play");
     text[1].setString("Settings");

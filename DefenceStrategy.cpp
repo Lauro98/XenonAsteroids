@@ -14,10 +14,6 @@ void DefenceStrategy::draw(sf::Sprite sprite, sf::RenderWindow &renderWindow) {
     renderWindow.draw(shield);
 }
 
-DefenceStrategy::~DefenceStrategy() {
-
-}
-
 DefStrategyType DefenceStrategy::getType() {
     return type;
 }

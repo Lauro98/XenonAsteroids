@@ -1,5 +1,6 @@
 #include "Splash.h"
 #include "MainMenu.h"
+#include "Definitions.h"
 #include <iostream>
 #include <utility>
 
@@ -19,7 +20,7 @@ void Splash::handleInput() {
 }
 
 void Splash::update() {
-    if(clock.getElapsedTime().asSeconds() > 3.f){
+    if(clock.getElapsedTime().asSeconds() > SPLASH_DURATION){
         background.setTexture(data->textureManager.getTextureFromAtlas("commands"));
     }
 }
