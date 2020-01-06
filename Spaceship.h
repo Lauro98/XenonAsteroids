@@ -15,18 +15,18 @@ private:
     float fireRate;
     float accel;
     float bend;
+    sf::Clock shootClock;
     DefenceStrategy* defenceStrategy;
 public:
-    Spaceship();
+    Spaceship() = default;
     Spaceship(TextureManager& textureManager, ShipType shipType);
     ~Spaceship() override;
-    void updatePosition() override;
+    void update() override;
     void setBoosting(bool boosting);
-    void setShooting(bool shooting);
+    void shoot();
     void setDefenceStrategy(DefStrategyType type);
     DefenceStrategy* getDefenceStrategy();
     bool isShooting();
-    float getFireRate();
     void turnLeft();
     void turnRight();
 

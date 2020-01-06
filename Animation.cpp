@@ -1,7 +1,7 @@
 #include "Animation.h"
 
 Animation::Animation(sf::Sprite &sprite, int xOrigin, int yOrigin, int width, int height, int totalRects, float animationSpeed) {
-    endOfAnim = false;
+    animEnded = false;
     this->animationSpeed=animationSpeed;
     frame=0;
 
@@ -15,17 +15,13 @@ void Animation::update(sf::Sprite& sprite) {
     frame += animationSpeed;
     if (frame >= rects.size()) {
         frame -= rects.size();
-        endOfAnim = true;
+        animEnded = true;
     }
     else
-        endOfAnim = false;
+        animEnded = false;
     sprite.setTextureRect(rects.at((int)frame));
 }
 
-Animation::Animation() {
-
-}
-
-bool Animation::isEndOfAnim() {
-    return endOfAnim;
+bool Animation::isAnimEnded() {
+    return animEnded;
 }

@@ -47,22 +47,16 @@ void GameLoop::handleInput() {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             data->spaceship.setBoosting(true);
-            data->spaceship.updatePosition();
+            data->spaceship.update();
         }
 
         if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             data->spaceship.setBoosting(false);
-            data->spaceship.updatePosition();
+            data->spaceship.update();
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
-            if (shootClock.getElapsedTime().asSeconds() >= data->spaceship.getFireRate()) {
-                data->spaceship.setShooting(true);
-                shootClock.restart();
-            }
-        }
-        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
-            data->spaceship.setShooting(false);
+            data->spaceship.shoot();
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
@@ -84,9 +78,9 @@ void GameLoop::update() {
     }
 
     for (int i = 0; i < entities.size(); i++) {
-        entities.at(i)->updatePosition();
+        entities.at(i)->update();
         entities.at(i)->getAnimation().update(entities.at(i)->getSprite());
-        if (!entities.at(i)->getHp()) {
+        if (!entities.at(i)->isAlive()) {
             entities.erase(entities.begin() + i);
         }
     }
@@ -103,8 +97,8 @@ void GameLoop::update() {
                         entities.emplace_back(new Explosion(data->textureManager, *entities.at(i)));
                         entities.emplace_back(new Asteroid(data->textureManager, *entities.at(j)));
                         entities.emplace_back(new Asteroid(data->textureManager, *entities.at(j)));
-                        entities.at(i)->setHp(0);
-                        entities.at(j)->setHp(0);
+                        entities.at(i)->terminate();
+                        entities.at(j)->terminate();
                         data->panel.addPoints(ASTEROID_EXPL);
                     }
                 }
@@ -112,8 +106,8 @@ void GameLoop::update() {
                     entities.at(j)->getType() == EntityType::rubble) {
                     if (Collision::PixelPerfectTest(entities.at(i)->getSprite(), entities.at(j)->getSprite())) {
                         entities.emplace_back(new Explosion(data->textureManager, *entities.at(j)));
-                        entities.at(i)->setHp(0);
-                        entities.at(j)->setHp(0);
+                        entities.at(i)->terminate();
+                        entities.at(j)->terminate();
                         data->panel.addPoints(RUBBLE_EXPL);
                     }
                 }
@@ -130,7 +124,7 @@ void GameLoop::update() {
                                                 data->spaceship.getDefenceStrategy()->getShieldSprite())) {
                     entities.emplace_back(new Explosion(data->textureManager, data->spaceship));
                     entities.emplace_back(new Explosion(data->textureManager, *entities.at(i)));
-                    entities.at(i)->setHp(0);
+                    entities.at(i)->terminate();
                     gameOver = true;
                 }
             }
@@ -144,13 +138,13 @@ void GameLoop::update() {
                     entities.emplace_back(new Asteroid(data->textureManager, *entities.at(i)));
                 }
                 entities.emplace_back(new Explosion(data->textureManager, *entities.at(i)));
-                entities.at(i)->setHp(0);
+                entities.at(i)->terminate();
                 data->panel.addPoints(POINT_MALUS);
                 data->spaceship.getDefenceStrategy()->impact();
             }
         }
     }
-    if (gameOver && entities.at(entities.size()-1)->getAnimation().isEndOfAnim()) {
+    if (gameOver && entities.at(entities.size()-1)->getAnimation().isAnimEnded()) {
         data->stateManager.addState(StateRef(new GameOver(data)), true);
     }
 }
@@ -164,7 +158,7 @@ void GameLoop::draw() {
     if(data->spaceship.getDefenceStrategy()->getType() != none && data->spaceship.getDefenceStrategy()->isVisible() && !gameOver)
         data->spaceship.getDefenceStrategy()->draw(data->spaceship.getSprite(), data->renderWindow);
     for(int i = 0; i < entities.size(); i++)
-        if(entities.at(i)->getHp())
+        if(entities.at(i)->isAlive())
             entities.at(i)->draw(data->renderWindow);
     data->panel.draw(data->renderWindow);
     data->renderWindow.display();

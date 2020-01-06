@@ -9,16 +9,16 @@ Projectile::Projectile(TextureManager& textureManager, Spaceship& spaceship) {
     xPos = spaceship.getSprite().getLocalBounds().width/2 - sprite.getLocalBounds().width/2 + spaceship.getSprite().getPosition().x;
     yPos = abs(spaceship.getSprite().getPosition().y);
     angle = spaceship.getAngle();
-    hp=1;
+    alive=true;
     type = EntityType::projectile;
 }
 
-void Projectile::updatePosition() {
+void Projectile::update() {
     dx = (float)cos(angle*RADIANS)*7;
     dy = (float)sin(angle*RADIANS)*7;
     xPos += dx;
     yPos += dy;
 
     if((xPos < 0) || (xPos > WINDOW_WIDTH) || (yPos < 0) || (yPos > WINDOW_HEIGHT))
-        hp = 0;
+        alive = false;
 }

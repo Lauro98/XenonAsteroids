@@ -16,7 +16,6 @@
 class GameLoop: public State {
 private:
     sf::Clock asteroidsGen;
-    sf::Clock shootClock;
     std::vector<Entity*> entities;
     sf::Sprite background;
     GameDataRef data;

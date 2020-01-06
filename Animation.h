@@ -12,12 +12,12 @@ private:
     float frame;
     float animationSpeed;
     std::vector<sf::IntRect> rects;
-    bool endOfAnim{};
+    bool animEnded;
 public:
-    Animation();
+    Animation() = default;
     Animation(sf::Sprite &sprite, int xOrigin, int yOrigin, int width, int height, int totalRects, float animationSpeed);
     void update(sf::Sprite& sprite);
-    bool isEndOfAnim();
+    bool isAnimEnded();
 };
 
 

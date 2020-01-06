@@ -7,7 +7,7 @@ class Explosion : public Entity{
 private:
 public:
     Explosion(TextureManager& textureManager, Entity& entity);
-    void updatePosition() override;
+    void update() override;
 };
 
 #endif //XENON_EXPLOSION_H

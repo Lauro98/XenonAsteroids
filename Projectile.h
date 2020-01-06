@@ -9,7 +9,7 @@
 class Projectile: public Entity {
 public:
     Projectile(TextureManager& textureManager, Spaceship& spaceship);
-    void updatePosition() override;
+    void update() override;
 };
 
 

@@ -3,14 +3,13 @@
 #include "Definitions.h"
 
 Asteroid::Asteroid(TextureManager& textureManager) {
-    hp=1;
-    angle=0;
-
+    alive = true;
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<int> initPos(0, 3);
     std::uniform_int_distribution<int> distX(0, WINDOW_WIDTH);
     std::uniform_int_distribution<int> distY(0, WINDOW_HEIGHT);
+    std::uniform_int_distribution<float> distAngle(0, 90);
     switch ((int)initPos(gen)){
         case 0:
             xPos = 0;
@@ -29,7 +28,7 @@ Asteroid::Asteroid(TextureManager& textureManager) {
             yPos = (float)WINDOW_HEIGHT;
             break;
     }
-
+    angle = (float)distAngle(gen);
     sprite.setTexture(textureManager.getTextureFromAtlas("rock"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
 
@@ -44,7 +43,7 @@ Asteroid::Asteroid(TextureManager& textureManager) {
 }
 
 Asteroid::Asteroid(TextureManager &textureManager, Entity &asteroid) {
-    hp=1;
+    alive=true;
     angle=0;
 
     static std::random_device rd;
@@ -58,15 +57,15 @@ Asteroid::Asteroid(TextureManager &textureManager, Entity &asteroid) {
     sprite.setTexture(textureManager.getTextureFromAtlas("rock_small"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
 
-    xPos=asteroid.getXPos();
-    yPos=asteroid.getYPos();
+    xPos=asteroid.getSprite().getPosition().x;
+    yPos=asteroid.getSprite().getPosition().y;
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
 
     type = EntityType::rubble;
 }
 
-void Asteroid::updatePosition() {
+void Asteroid::update() {
     xPos += dx;
     yPos += dy;
 

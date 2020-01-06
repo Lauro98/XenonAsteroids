@@ -8,7 +8,7 @@ class Asteroid: public Entity {
 public:
     explicit Asteroid(TextureManager& textureManager);
     Asteroid (TextureManager& textureManager, Entity& asteroid);
-    void updatePosition() override;
+    void update() override;
 };
 
 

@@ -5,7 +5,7 @@
 
 Game::Game() {
     dt = FRAME_TIME;
-    data->renderWindow.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Xenon", sf::Style::Default);
+    data->renderWindow.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Xenon", sf::Style::Fullscreen);
     data->renderWindow.setMouseCursorVisible(false);
     if(!data->font.loadFromFile("media/PIXELADE.TTF"))
         std::cout << "error opening font\n";

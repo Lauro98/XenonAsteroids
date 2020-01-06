@@ -15,19 +15,17 @@ protected:
     float xPos, yPos;
     float dx, dy;
     float angle;
-    unsigned int hp;
+    bool alive;
     Animation animation;
     EntityType type;
 public:
     virtual ~Entity() = default;
-    virtual void updatePosition() = 0;
+    virtual void update() = 0;
     void draw(sf::RenderWindow &gameWindow);
-    void setHp(unsigned int hp);
+    void terminate();
     Animation& getAnimation();
     sf::Sprite& getSprite();
-    unsigned int getHp();
-    float getXPos();
-    float getYPos();
+    bool isAlive();
     float getAngle();
     EntityType getType();
 };

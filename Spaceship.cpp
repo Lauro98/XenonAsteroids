@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Spaceship.h"
 #include "cmath"
 #include "ToggableShield.h"
@@ -5,7 +6,6 @@
 #include "NoneShield.h"
 #include "Definitions.h"
 
-Spaceship::Spaceship() { }
 
 Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
     switch(shipType){
@@ -44,18 +44,27 @@ Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
     }
     xPos=((float)WINDOW_WIDTH - sprite.getLocalBounds().width)/2;
     yPos=((float)WINDOW_HEIGHT - sprite.getLocalBounds().height)/2;
+    std::cout << xPos << ", " << yPos << std::endl;
     sprite.setPosition(xPos, yPos);
+    std::cout << "position is" << sprite.getPosition().x << ", " << sprite.getPosition().y << std::endl;
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     boosting=false;
     shooting=false;
-    hp=1;
+    alive=true;
     angle=-90;
+    shootClock.restart();
     this->type = EntityType::spaceship;
     defenceStrategy = nullptr;
     setDefenceStrategy(none);
 }
 
-void Spaceship::updatePosition() {
+Spaceship::~Spaceship() {
+    if(defenceStrategy->getType() == toggableShield || defenceStrategy->getType() == timeShield)
+        delete(defenceStrategy);
+}
+
+void Spaceship::update() {
+    shooting = false;
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     if(boosting){
         if(sprite.getTextureRect().left != sprite.getTextureRect().width) {
@@ -98,10 +107,6 @@ void Spaceship::setBoosting(bool boost) {
     boosting=boost;
 }
 
-float Spaceship::getFireRate() {
-    return fireRate;
-}
-
 void Spaceship::turnRight() {
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     angle += bend;
@@ -110,10 +115,6 @@ void Spaceship::turnRight() {
 void Spaceship::turnLeft() {
     sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     angle -= bend;
-}
-
-void Spaceship::setShooting(bool shooting) {
-    this->shooting = shooting;
 }
 
 bool Spaceship::isShooting() {
@@ -134,11 +135,13 @@ void Spaceship::setDefenceStrategy(DefStrategyType type) {
     }
 }
 
-Spaceship::~Spaceship() {
-    if(defenceStrategy->getType() == toggableShield || defenceStrategy->getType() == timeShield)
-        delete(defenceStrategy);
-}
-
 DefenceStrategy* Spaceship::getDefenceStrategy() {
     return defenceStrategy;
+}
+
+void Spaceship::shoot() {
+    if(shootClock.getElapsedTime().asSeconds() >= fireRate) {
+        shooting = true;
+        shootClock.restart();
+    }
 }
