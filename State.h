@@ -4,13 +4,11 @@
 
 class State {
 public:
-    virtual ~State();
+    virtual ~State() = default;
     virtual void init() = 0;
     virtual void handleInput() = 0;
     virtual void update() = 0;
     virtual void draw () = 0;
-    virtual void pause ();
-    virtual void resume();
 };
 
 

@@ -1,6 +1,7 @@
 #include "Entity.h"
 
 void Entity::draw(sf::RenderWindow &gameWindow) {
+    sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     sprite.setPosition(xPos, yPos);
     sprite.setRotation(angle+90);
     gameWindow.draw(sprite);

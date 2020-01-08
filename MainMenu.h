@@ -1,6 +1,5 @@
 #ifndef XENON_MAINMENU_H
 #define XENON_MAINMENU_H
-
 #include "State.h"
 #include "Game.h"
 #include <SFML/Graphics.hpp>
@@ -14,19 +13,12 @@ private:
 
 public:
     explicit MainMenu(GameDataRef data);
-
     void moveUp();
-
     void moveDown();
-
     void init() override ;
-
     void handleInput() override;
-
     void update() override ;
-
     void draw () override;
 };
 
-
-#endif //XENON_MAINMENU_H
+#endif

@@ -3,12 +3,13 @@
 #include "MainMenu.h"
 #include "ToggableShield.h"
 #include "Definitions.h"
+#include "Settings.h"
 
 Pause::Pause(GameDataRef dataRef): data(std::move(dataRef)){
 }
 
 void Pause::init() {
-
+    data->soundManager.playPauseTheme();
     background.setTexture(data->textureManager.getTextureFromAtlas("pause"));
     for(int i=0; i<5; i++){
         text[i].setFont(data->font);
@@ -34,8 +35,6 @@ void Pause::init() {
 void Pause::handleInput() {
     sf::Event event{};
     while(data->renderWindow.pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
-            data->renderWindow.close();
         if (event.type == sf::Event::KeyPressed)
             switch (event.key.code) {
                 case sf::Keyboard::Up:
@@ -47,10 +46,12 @@ void Pause::handleInput() {
                 case sf::Keyboard::Space:
                         switch (selectedItemIndex) {
                             case 0:
+                                data->soundManager.playResumeSound();
                                 data->stateManager.popState();
                                 break;
                             case 1:
                                 if(data->panel.getScore() >= TOGGABLE_SHIELD_COST) {
+                                    data->soundManager.playSelectionSound();
                                     if(data->spaceship.getDefenceStrategy()->getType() != toggableShield) {
                                         data->spaceship.setDefenceStrategy(toggableShield);
                                         data->panel.addPoints(-TOGGABLE_SHIELD_COST);
@@ -58,27 +59,34 @@ void Pause::handleInput() {
                                     }
                                     else {
                                         data->spaceship.getDefenceStrategy()->addShield();
-                                        data->panel.addPoints(-ADD_TOGGABLE_SHIELD_COST);
+                                        data->panel.addPoints(-TOGGABLE_SHIELD_COST);
                                         break;
                                     }
                                 }
+                                else
+                                    data->soundManager.playDeniedSound();
                                 break;
                             case 2:
                                 if(data->panel.getScore() >= TIME_SHIELD_COST) {
+                                    data->soundManager.playSelectionSound();
                                     if(data->spaceship.getDefenceStrategy()->getType() != timeShield) {
                                         data->spaceship.setDefenceStrategy(timeShield);
                                         data->panel.addPoints(-TIME_SHIELD_COST);
                                     }
                                     else {
                                         data->spaceship.getDefenceStrategy()->addShield();
-                                        data->panel.addPoints(-ADD_TIME_SHIELD_COST);
+                                        data->panel.addPoints(-TIME_SHIELD_COST);
                                     }
                                 }
+                                else
+                                    data->soundManager.playDeniedSound();
                                 break;
                             case 3:
-                                std::cout << "settings\n";
+                                data->soundManager.playSelectionSound();
+                                data->stateManager.addState(StateRef(new Settings(data)), false);
                                 break;
                             case 4:
+                                data->soundManager.playSelectionSound();
                                 data->stateManager.addState(StateRef(new MainMenu(data)), true);
                                 break;
                         }
@@ -110,17 +118,19 @@ void Pause::draw() {
 }
 
 void Pause::moveUp() {
-        if(selectedItemIndex - 1 >= 0){
-            text[selectedItemIndex].setFillColor(sf::Color::White);
-            selectedItemIndex--;
-            text[selectedItemIndex].setFillColor(sf::Color::Red);
-        }
+    if(selectedItemIndex - 1 >= 0){
+        text[selectedItemIndex].setFillColor(sf::Color::White);
+        selectedItemIndex--;
+        text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
+    }
 }
 
 void Pause::moveDown() {
-        if(selectedItemIndex + 1 < 5){
-            text[selectedItemIndex].setFillColor(sf::Color::White);
-            selectedItemIndex++;
-            text[selectedItemIndex].setFillColor(sf::Color::Red);
+    if(selectedItemIndex + 1 < 5){
+        text[selectedItemIndex].setFillColor(sf::Color::White);
+        selectedItemIndex++;
+        text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 }

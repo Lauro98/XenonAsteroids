@@ -42,18 +42,15 @@ Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
             bend = STARR_BEND;
             break;
     }
-    xPos=((float)WINDOW_WIDTH - sprite.getLocalBounds().width)/2;
-    yPos=((float)WINDOW_HEIGHT - sprite.getLocalBounds().height)/2;
-    std::cout << xPos << ", " << yPos << std::endl;
+    xPos = (float)WINDOW_WIDTH/2;
+    yPos = (float)WINDOW_HEIGHT/2;
     sprite.setPosition(xPos, yPos);
-    std::cout << "position is" << sprite.getPosition().x << ", " << sprite.getPosition().y << std::endl;
-    sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
-    boosting=false;
-    shooting=false;
-    alive=true;
-    angle=-90;
+    boosting = false;
+    shooting = false;
+    alive = true;
+    angle = -90;
     shootClock.restart();
-    this->type = EntityType::spaceship;
+    type = EntityType::spaceship;
     defenceStrategy = nullptr;
     setDefenceStrategy(none);
 }
@@ -65,7 +62,6 @@ Spaceship::~Spaceship() {
 
 void Spaceship::update() {
     shooting = false;
-    sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     if(boosting){
         if(sprite.getTextureRect().left != sprite.getTextureRect().width) {
             animation = {sprite, sprite.getTextureRect().width, 0, sprite.getTextureRect().width,
@@ -74,7 +70,7 @@ void Spaceship::update() {
         dx += (float)cos(angle*RADIANS)*accel;
         dy += (float)sin(angle*RADIANS)*accel;
         float speed = sqrt(dx*dx + dy*dy);
-        if(speed>maxSpeed){
+        if(speed > maxSpeed){
             dx *= maxSpeed/speed;
             dy *= maxSpeed/speed;
         }
@@ -88,32 +84,29 @@ void Spaceship::update() {
     }
     xPos += dx;
     yPos += dy;
-
     if(defenceStrategy->getType() != none && defenceStrategy->isShieldTerminated()){
         setDefenceStrategy(none);
     }
-
-    if(xPos<0)
+    if(xPos < 0)
         xPos = WINDOW_WIDTH;
-    if(xPos>WINDOW_WIDTH)
-        xPos=0;
-    if(yPos<0)
+    if(xPos > WINDOW_WIDTH)
+        xPos = 0;
+    if(yPos < 0)
         yPos = WINDOW_HEIGHT;
-    if(yPos>WINDOW_HEIGHT)
-        yPos=0;
+    if(yPos > WINDOW_HEIGHT)
+        yPos = 0;
+    defenceStrategy->update();
 }
 
 void Spaceship::setBoosting(bool boost) {
-    boosting=boost;
+    boosting = boost;
 }
 
 void Spaceship::turnRight() {
-    sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     angle += bend;
 }
 
 void Spaceship::turnLeft() {
-    sprite.setOrigin(sprite.getLocalBounds().width/2,sprite.getLocalBounds().height/2);
     angle -= bend;
 }
 

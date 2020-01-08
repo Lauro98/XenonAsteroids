@@ -3,39 +3,37 @@
 #include "Definitions.h"
 
 Asteroid::Asteroid(TextureManager& textureManager) {
-    alive = true;
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<int> initPos(0, 3);
     std::uniform_int_distribution<int> distX(0, WINDOW_WIDTH);
     std::uniform_int_distribution<int> distY(0, WINDOW_HEIGHT);
-    std::uniform_int_distribution<float> distAngle(0, 90);
+    std::uniform_int_distribution<int> distAngle(0, 90);
     switch ((int)initPos(gen)){
         case 0:
             xPos = 0;
-            yPos=(float)(distY(gen));
+            yPos = (float)(distY(gen));
             break;
         case 1:
             xPos = (float)WINDOW_WIDTH;
-            yPos=(float)(distY(gen));
+            yPos = (float)(distY(gen));
             break;
         case 2:
-            xPos=(float)(distX(gen));
+            xPos = (float)(distX(gen));
             yPos = 0;
             break;
         case 3:
-            xPos=(float)(distX(gen));
+            xPos = (float)(distX(gen));
             yPos = (float)WINDOW_HEIGHT;
             break;
     }
+    alive = true;
     angle = (float)distAngle(gen);
     sprite.setTexture(textureManager.getTextureFromAtlas("rock"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
 
     std::uniform_int_distribution<float> distSpeedX(-4,4);
     std::uniform_int_distribution<float> distSpeedY(-4,4);
-
-
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
 
@@ -43,22 +41,21 @@ Asteroid::Asteroid(TextureManager& textureManager) {
 }
 
 Asteroid::Asteroid(TextureManager &textureManager, Entity &asteroid) {
-    alive=true;
-    angle=0;
+    alive = true;
+    angle = 0;
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<float> distSpeedX(-3,5);
     std::uniform_int_distribution<float> distSpeedY(-3,5);
 
-
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
     sprite.setTexture(textureManager.getTextureFromAtlas("rock_small"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
 
-    xPos=asteroid.getSprite().getPosition().x;
-    yPos=asteroid.getSprite().getPosition().y;
+    xPos = asteroid.getSprite().getPosition().x;
+    yPos = asteroid.getSprite().getPosition().y;
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
 
@@ -78,4 +75,5 @@ void Asteroid::update() {
         yPos = 0;
     if(yPos<0)
         yPos = (float)WINDOW_HEIGHT;
+    animation.update(sprite);
 }

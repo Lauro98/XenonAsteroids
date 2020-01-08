@@ -1,6 +1,5 @@
 #ifndef XENON_ANIMATION_H
 #define XENON_ANIMATION_H
-
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -20,5 +19,4 @@ public:
     bool isAnimEnded();
 };
 
-
-#endif //XENON_ANIMATION_H
+#endif

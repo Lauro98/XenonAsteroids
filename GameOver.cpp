@@ -8,6 +8,7 @@ GameOver::GameOver(GameDataRef dataRef): data(std::move(dataRef)){
 }
 
 void GameOver::init() {
+    data->soundManager.playGameOverSound();
     background.setTexture(data->textureManager.getTextureFromAtlas("game_over"));
     if(!font.loadFromFile("media/PIXELADE.TTF"))
         std::cout << "error opening font\n";
@@ -22,7 +23,6 @@ void GameOver::init() {
     text[1].setString("Return to Main Menu");
     text[0].setFillColor(sf::Color::Red);
     selectedItemIndex = 0;
-
 }
 
 void GameOver::handleInput() {
@@ -39,6 +39,7 @@ void GameOver::handleInput() {
                     moveDown();
                     break;
                 case sf::Keyboard::Space:
+                    data->soundManager.playSelectionSound();
                     switch (selectedItemIndex){
                         case 0:
                             data->stateManager.addState(StateRef(new SelectSpaceShip(data)), true);
@@ -53,9 +54,7 @@ void GameOver::handleInput() {
     }
 }
 
-void GameOver::update() {
-
-}
+void GameOver::update() { }
 
 void GameOver::draw() {
     data->renderWindow.clear();
@@ -70,8 +69,8 @@ void GameOver::moveUp() {
         text[selectedItemIndex].setFillColor(sf::Color::Black);
         selectedItemIndex--;
         text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
-
 }
 
 void GameOver::moveDown() {
@@ -79,5 +78,6 @@ void GameOver::moveDown() {
         text[selectedItemIndex].setFillColor(sf::Color::Black);
         selectedItemIndex++;
         text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 }

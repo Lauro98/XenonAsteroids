@@ -1,6 +1,5 @@
 #ifndef XENON_NONESHIELD_H
 #define XENON_NONESHIELD_H
-
 #include "DefenceStrategy.h"
 
 class NoneShield: public DefenceStrategy{
@@ -14,5 +13,4 @@ public:
     unsigned int getShieldLife() override;
 };
 
-
-#endif //XENON_NONESHIELD_H
+#endif

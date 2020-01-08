@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "SelectSpaceShip.h"
 #include "Definitions.h"
+#include "Settings.h"
 #include <utility>
 #include <iostream>
 
@@ -8,6 +9,7 @@ MainMenu::MainMenu(GameDataRef dataRef): data(std::move(dataRef)){
 }
 
 void MainMenu::init() {
+    data->soundManager.playMainTheme();
     background.setTexture(data->textureManager.getTextureFromAtlas("menu"));
     for(int i=0; i<3; i++){
         text[i].setFont(data->font);
@@ -40,10 +42,12 @@ void MainMenu::handleInput() {
             case sf::Keyboard::Space:
                 switch (selectedItemIndex){
                     case 0:
+                        data->soundManager.playSelectionSound();
                         data->stateManager.addState(StateRef(new SelectSpaceShip(data)), true);
                         break;
                     case 1:
-                        std::cout << "pressed settings\n";
+                        data->soundManager.playSelectionSound();
+                        data->stateManager.addState(StateRef(new Settings(data)), false);
                         break;
                     case 2:
                         data->renderWindow.close();
@@ -72,6 +76,7 @@ void MainMenu::moveUp() {
         text[selectedItemIndex].setFillColor(sf::Color::White);
         selectedItemIndex--;
         text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 
 }
@@ -81,5 +86,6 @@ void MainMenu::moveDown() {
         text[selectedItemIndex].setFillColor(sf::Color::White);
         selectedItemIndex++;
         text[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 }

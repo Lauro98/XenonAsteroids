@@ -13,8 +13,6 @@ public:
     void update() override;
     void activateShield() override;
     unsigned int getShieldLife() override;
-
 };
 
-
-#endif //XENON_TOGGABLESHIELD_H
+#endif

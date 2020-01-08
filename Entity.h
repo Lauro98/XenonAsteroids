@@ -1,11 +1,8 @@
 #ifndef XENON_ENTITY_H
 #define XENON_ENTITY_H
-
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Animation.h"
 #include "TextureManager.h"
-
-
 
 enum class EntityType {spaceship, asteroid, rubble, projectile};
 
@@ -29,6 +26,5 @@ public:
     float getAngle();
     EntityType getType();
 };
-
 
 #endif

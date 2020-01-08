@@ -7,9 +7,9 @@ add_subdirectory(unit_test)
 
 set(SOURCE_FILES main.cpp GameLoop.cpp TextureManager.cpp Animation.cpp Entity.cpp
         Asteroid.cpp Spaceship.cpp Projectile.cpp Explosion.cpp Collision.cpp Panel.cpp
-        State.cpp StateManager.cpp Game.cpp Splash.cpp MainMenu.cpp SelectSpaceShip.cpp
+        StateManager.cpp Game.cpp Splash.cpp MainMenu.cpp SelectSpaceShip.cpp
         GameOver.cpp Pause.cpp DefenceStrategy.cpp ToggableShield.cpp TimeShield.cpp
-        NoneShield.cpp Definitions.h)
+        NoneShield.cpp Definitions.h SoundManager.cpp SoundManager.h Settings.cpp Settings.h)
 
 add_executable(xenon ${SOURCE_FILES})
 add_library(core ${SOURCE_FILES})

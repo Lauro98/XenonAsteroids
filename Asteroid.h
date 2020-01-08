@@ -1,6 +1,5 @@
 #ifndef XENON_ASTEROID_H
 #define XENON_ASTEROID_H
-
 #include "Entity.h"
 #include "TextureManager.h"
 
@@ -10,6 +9,5 @@ public:
     Asteroid (TextureManager& textureManager, Entity& asteroid);
     void update() override;
 };
-
 
 #endif

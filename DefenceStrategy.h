@@ -1,7 +1,5 @@
 #ifndef XENON_DEFENCESTRATEGY_H
 #define XENON_DEFENCESTRATEGY_H
-
-
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -28,8 +26,6 @@ public:
     DefStrategyType getType();
     virtual unsigned int getShieldLife() = 0;
     virtual void update() = 0;
-
 };
 
-
-#endif //XENON_DEFENCESTRATEGY_H
+#endif

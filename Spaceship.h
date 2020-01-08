@@ -29,8 +29,6 @@ public:
     bool isShooting();
     void turnLeft();
     void turnRight();
-
 };
 
-
-#endif //XENON_SPACESHIP_H
+#endif

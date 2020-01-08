@@ -1,6 +1,5 @@
 #ifndef XENON_PANEL_H
 #define XENON_PANEL_H
-
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -24,5 +23,4 @@ public:
 
 };
 
-
-#endif //XENON_PANEL_H
+#endif

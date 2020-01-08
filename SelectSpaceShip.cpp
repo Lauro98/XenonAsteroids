@@ -52,6 +52,7 @@ void SelectSpaceShip::handleInput() {
                     moveRight();
                     break;
                 case sf::Keyboard::Space:
+                    data->soundManager.playSelectionSound();
                     switch (selectedItemIndex){
                         case 0:
                             data->spaceship = {data->textureManager, lennon};
@@ -81,6 +82,7 @@ void SelectSpaceShip::moveLeft() {
         name[selectedItemIndex].setFillColor(sf::Color::White);
         selectedItemIndex--;
         name[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 }
 
@@ -89,6 +91,7 @@ void SelectSpaceShip::moveRight() {
         name[selectedItemIndex].setFillColor(sf::Color::White);
         selectedItemIndex++;
         name[selectedItemIndex].setFillColor(sf::Color::Red);
+        data->soundManager.playNavigationSound();
     }
 }
 

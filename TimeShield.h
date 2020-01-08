@@ -1,7 +1,5 @@
 #ifndef XENON_TIMESHIELD_H
 #define XENON_TIMESHIELD_H
-
-
 #include "DefenceStrategy.h"
 
 class TimeShield: public DefenceStrategy {
@@ -15,8 +13,6 @@ public:
     void update() override;
     void activateShield() override;
     unsigned int getShieldLife() override;
-
 };
 
-
-#endif //XENON_TIMESHIELD_H
+#endif

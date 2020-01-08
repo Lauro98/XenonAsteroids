@@ -1,6 +1,5 @@
 #ifndef XENON_STATEMANAGER_H
 #define XENON_STATEMANAGER_H
-
 #include <memory>
 #include <stack>
 #include "State.h"
@@ -23,4 +22,4 @@ public:
     StateRef &getActiveState();
 };
 
-#endif //XENON_STATEMANAGER_H
+#endif

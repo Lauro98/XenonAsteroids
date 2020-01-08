@@ -2,22 +2,18 @@
 #include "Panel.h"
 #include "Definitions.h"
 
-Panel::Panel() {
-
-}
+Panel::Panel() { }
 
 Panel::Panel(const sf::Font& font, TextureManager& textureManager) {
     shieldIco.setOrigin(0,0);
     shieldIco.setTexture(textureManager.getTextureFromAtlas("shieldIco"));
     shieldIco.setPosition(SHIELD_ICO_AXIS, PANEL_ORD);
-
     shieldText.setOrigin(0,0);
     shieldText.setPosition(shieldIco.getPosition().x+50,11);
     shieldText.setFont(font);
     shieldText.setFillColor(sf::Color::White);
     shieldText.setCharacterSize(43);
     shieldText.setString("0");
-
     scoreText.setOrigin(0,0);
     scoreText.setPosition(SCORE_AXIS,PANEL_ORD);
     scoreText.setFont(font);
@@ -42,7 +38,7 @@ void Panel::draw(sf::RenderWindow &renderWindow) {
     renderWindow.draw(shieldText);
 }
 
-    int Panel::getScore() {
+int Panel::getScore() {
     return score;
 }
 

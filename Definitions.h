@@ -30,13 +30,18 @@
 
 //Pause
 #define TOGGABLE_SHIELD_COST 30
-#define ADD_TOGGABLE_SHIELD_COST 30
 #define BUY_TOGG_SHIELD_STRING "Buy Toggable Shield    30p"
 #define ADD_TOGG_SHIELD_STRING "Add a Toggable Shield  30P"
 #define TIME_SHIELD_COST 30
-#define ADD_TIME_SHIELD_COST 30
 #define BUY_TIME_SHIELD_STRING "Buy Time Shield        30p"
 #define ADD_TIME_SHIELD_STRING "Add 2 seconds          30p"
+
+//Settings
+#define FIRST_VOLUME_BOX_AXIS 372
+#define FIRST_VOLUME_BOX_ORD 263
+#define VOLUME_BOX_GAP 65
+#define DEFAULT_MUSIC_VOLUME 100
+#define DEFAULT_FX_VOLUME 75
 
 //Shields
 #define TIME_SHIELD_BASE_DURATION 3

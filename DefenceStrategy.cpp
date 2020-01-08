@@ -1,6 +1,5 @@
 #include "DefenceStrategy.h"
 
-
 bool DefenceStrategy::isVisible() {
     return visible;
 }

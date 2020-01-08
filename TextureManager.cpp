@@ -1,3 +1,4 @@
+#include <iostream>
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
@@ -13,6 +14,7 @@ TextureManager::TextureManager() {
     loadTexture("projectile","media/projectile.png");
     loadTexture("rock", "media/rock.png");
     loadTexture("rock_small", "media/rock_small.png");
+    loadTexture("settings", "media/settings.png");
     loadTexture("shieldIco", "media/shield_ico.png");
     loadTexture("splash", "media/splash.png");
     loadTexture("starr", "media/starr.png");
@@ -20,7 +22,8 @@ TextureManager::TextureManager() {
 
 void TextureManager::loadTexture(const std::string &name, const std::string &filePath) {
     sf::Texture tempTex;
-    tempTex.loadFromFile(filePath);
+    if(!tempTex.loadFromFile(filePath))
+        std::cout << "error: can't open file at " << filePath << std::endl;
     textureAtlas[name] = tempTex;
 }
 

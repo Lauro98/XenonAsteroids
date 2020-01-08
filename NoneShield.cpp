@@ -2,15 +2,12 @@
 
 
 void NoneShield::addShield() {
-
 }
 
 void NoneShield::update() {
-
 }
 
 void NoneShield::impact() {
-
 }
 
 NoneShield::NoneShield() {
@@ -18,7 +15,6 @@ NoneShield::NoneShield() {
 }
 
 void NoneShield::activateShield() {
-
 }
 
 unsigned int NoneShield::getShieldLife() {

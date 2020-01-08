@@ -1,7 +1,5 @@
 #ifndef XENON_SPLASH_H
 #define XENON_SPLASH_H
-
-
 #include "State.h"
 #include "Game.h"
 
@@ -12,15 +10,10 @@ private:
     sf::Sprite background;
 public:
     explicit Splash(GameDataRef data);
-
     void init() override ;
-
     void handleInput() override;
-
     void update() override ;
-
     void draw () override;
 };
 
-
-#endif //XENON_SPLASH_H
+#endif

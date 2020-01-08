@@ -21,16 +21,11 @@ void StateManager::popState() {
 void StateManager::makeChanges() {
     if (removing && !states.empty()){
         states.pop();
-        if (!states.empty())
-            states.top()->resume();
         removing=false;
     }
     if (adding){
-        if (!states.empty()){
-            if(replacing)
-                states.pop();
-            else
-                states.top()->pause();
+        if (!states.empty() && replacing){
+            states.pop();
         }
         states.push(std::move(newState));
         states.top()->init();

@@ -4,10 +4,8 @@ Animation::Animation(sf::Sprite &sprite, int xOrigin, int yOrigin, int width, in
     animEnded = false;
     this->animationSpeed=animationSpeed;
     frame=0;
-
     for(int i=0; i<totalRects; i++)
         rects.emplace_back(xOrigin+i*width, yOrigin, width, height);
-
     sprite.setTextureRect(rects.at(0));
 }
 

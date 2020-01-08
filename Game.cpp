@@ -10,13 +10,9 @@ Game::Game() {
     if(!data->font.loadFromFile("media/PIXELADE.TTF"))
         std::cout << "error opening font\n";
     data->stateManager.addState(StateRef(new Splash(data)), true);
-    run();
-}
 
-void Game::run() {
-    float newTime, frameTime;
-    float accumulator = 0.f;
-    float currentTime = gameClock.getElapsedTime().asSeconds();
+    accumulator = 0.f;
+    currentTime = gameClock.getElapsedTime().asSeconds();
 
     while(data->renderWindow.isOpen()){
         data->stateManager.makeChanges();
