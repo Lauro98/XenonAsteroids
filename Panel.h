@@ -8,11 +8,6 @@
 #include "Spaceship.h"
 
 class Panel {
-private:
-    sf::Sprite shieldIco;
-    sf::Text shieldText;
-    sf::Text scoreText;
-    int score;
 public:
     Panel();
     Panel(const sf::Font& font, TextureManager& textureManager);
@@ -20,7 +15,11 @@ public:
     void addPoints(int points);
     void setShieldText(unsigned int value);
     int getScore();
-
+private:
+    sf::Sprite shieldIco;
+    sf::Text shieldText;
+    sf::Text scoreText;
+    int score;
 };
 
 #endif

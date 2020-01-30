@@ -5,12 +5,6 @@
 #include <SFML/Graphics.hpp>
 
 class MainMenu: public State {
-private:
-    GameDataRef data;
-    sf::Sprite background;
-    sf::Text text[3];
-    int selectedItemIndex;
-
 public:
     explicit MainMenu(GameDataRef data);
     void moveUp();
@@ -19,6 +13,11 @@ public:
     void handleInput() override;
     void update() override ;
     void draw () override;
+private:
+    GameDataRef data;
+    sf::Sprite background;
+    sf::Text text[3];
+    int selectedItemIndex;
 };
 
 #endif

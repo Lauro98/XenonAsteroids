@@ -3,7 +3,6 @@
 #include "Entity.h"
 
 class Explosion : public Entity{
-private:
 public:
     Explosion(TextureManager& textureManager, Entity& entity);
     void update() override;

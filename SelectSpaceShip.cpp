@@ -5,11 +5,9 @@
 #include <utility>
 #include <iostream>
 
-SelectSpaceShip::SelectSpaceShip(GameDataRef dataRef) : data(std::move(dataRef)) {
-}
+SelectSpaceShip::SelectSpaceShip(GameDataRef dataRef) : data(std::move(dataRef)) { }
 
 void SelectSpaceShip::init() {
-
     background.setTexture(data->textureManager.getTextureFromAtlas("menu"));
     ship[0].setTexture(data->textureManager.getTextureFromAtlas("lennon"));
     ship[0].setTextureRect(sf::IntRect(0,0,LENNON_SPRITE_WIDTH, LENNON_SPRITE_HEIGHT));

@@ -4,12 +4,6 @@
 #include "Game.h"
 
 class Settings: public State {
-private:
-    GameDataRef data;
-    sf::Sprite background;
-    sf::Text text[4];
-    int selectedItemIndex;
-    bool viewingCommands;
 public:
     explicit Settings(GameDataRef dataRef);
     void moveUp();
@@ -18,6 +12,12 @@ public:
     void handleInput() override;
     void update() override;
     void draw () override;
+private:
+    GameDataRef data;
+    sf::Sprite background;
+    sf::Text text[4];
+    int selectedItemIndex;
+    bool viewingCommands;
 };
 
 #endif

@@ -1,21 +1,17 @@
 #include "NoneShield.h"
 
 
-void NoneShield::addShield() {
-}
+void NoneShield::addShield() { }
 
-void NoneShield::update() {
-}
+void NoneShield::update() { }
 
-void NoneShield::impact() {
-}
+void NoneShield::impact() { }
 
 NoneShield::NoneShield() {
     type = none;
 }
 
-void NoneShield::activateShield() {
-}
+void NoneShield::activateShield() { }
 
 unsigned int NoneShield::getShieldLife() {
     return 0;

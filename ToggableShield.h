@@ -4,8 +4,6 @@
 #include "DefenceStrategy.h"
 
 class ToggableShield: public DefenceStrategy {
-private:
-    unsigned int hp;
 public:
     explicit ToggableShield(sf::Sprite& sprite);
     void addShield() override;
@@ -13,6 +11,8 @@ public:
     void update() override;
     void activateShield() override;
     unsigned int getShieldLife() override;
+private:
+    unsigned int hp;
 };
 
 #endif

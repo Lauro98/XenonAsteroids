@@ -4,15 +4,6 @@
 #include "SFML/Audio.hpp"
 
 class SoundManager {
-private:
-    std::map<std::string, sf::Sound> soundAtlas;
-    std::map<std::string, sf::SoundBuffer> soundBufferAtlas;
-    sf::Music gameTheme;
-    sf::Music mainTheme;
-    sf::Music pauseTheme;
-    unsigned int fxVolume;
-    unsigned int musicVolume;
-    void loadSound(const std::string &name, const std::string &filePath);
 public:
     SoundManager();
     void playNavigationSound();
@@ -34,6 +25,15 @@ public:
     void musicVolumeDown();
     unsigned int getFxVolume();
     unsigned int getMusicVolume();
+private:
+    std::map<std::string, sf::Sound> soundAtlas;
+    std::map<std::string, sf::SoundBuffer> soundBufferAtlas;
+    sf::Music gameTheme;
+    sf::Music mainTheme;
+    sf::Music pauseTheme;
+    unsigned int fxVolume;
+    unsigned int musicVolume;
+    void loadSound(const std::string &name, const std::string &filePath);
 };
 
 #endif

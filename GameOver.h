@@ -4,13 +4,6 @@
 #include "Game.h"
 
 class GameOver: public State {
-private:
-    GameDataRef data;
-    sf::Sprite background;
-    sf::Font font;
-    sf::Text text[2];
-    int selectedItemIndex;
-    sf::Clock clock;
 public:
     explicit GameOver(GameDataRef data);
     void moveUp();
@@ -19,6 +12,13 @@ public:
     void handleInput() override;
     void update() override ;
     void draw () override;
+private:
+    GameDataRef data;
+    sf::Sprite background;
+    sf::Font font;
+    sf::Text text[2];
+    int selectedItemIndex;
+    sf::Clock clock;
 };
 
 #endif

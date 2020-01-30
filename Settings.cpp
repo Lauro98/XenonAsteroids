@@ -1,9 +1,7 @@
 #include "Settings.h"
 #include "Definitions.h"
 
-Settings::Settings(GameDataRef dataRef): data(std::move(dataRef)) {
-
-}
+Settings::Settings(GameDataRef dataRef): data(std::move(dataRef)) { }
 
 void Settings::init() {
     background.setTexture(data->textureManager.getTextureFromAtlas("settings"));

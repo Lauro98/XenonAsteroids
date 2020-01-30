@@ -14,7 +14,6 @@ Explosion::Explosion(TextureManager& textureManager, Entity& entity) {
         animation = {sprite, 0, 0, EXPLOSION_SPRITE_WIDTH, EXPLOSION_SPRITE_HEIGHT, EXPLOSION_SPRITESHEET, NORMAL_EXPLOSION_ANIM_SPEED};
     else
         animation = {sprite, 0, 0, EXPLOSION_SPRITE_WIDTH, EXPLOSION_SPRITE_HEIGHT, EXPLOSION_SPRITESHEET, SLOW_EXPLOSION_ANIM_SPEED};
-
 }
 
 void Explosion::update() {

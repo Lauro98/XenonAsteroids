@@ -31,5 +31,4 @@ void Splash::draw() {
     data->renderWindow.display();
 }
 
-Splash::Splash(GameDataRef dataRef) : data (std::move(dataRef)) {
-}
+Splash::Splash(GameDataRef dataRef) : data (std::move(dataRef)) { }

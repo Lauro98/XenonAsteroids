@@ -7,16 +7,16 @@
 #include <SFML/System/Clock.hpp>
 
 class Animation {
-private:
-    float frame;
-    float animationSpeed;
-    std::vector<sf::IntRect> rects;
-    bool animEnded;
 public:
     Animation() = default;
     Animation(sf::Sprite &sprite, int xOrigin, int yOrigin, int width, int height, int totalRects, float animationSpeed);
     void update(sf::Sprite& sprite);
     bool isAnimEnded();
+private:
+    float frame;
+    float animationSpeed;
+    std::vector<sf::IntRect> rects;
+    bool animEnded;
 };
 
 #endif

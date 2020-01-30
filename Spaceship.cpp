@@ -42,6 +42,8 @@ Spaceship::Spaceship(TextureManager& textureManager, ShipType shipType) {
             bend = STARR_BEND;
             break;
     }
+    dx = 0;
+    dy = 0;
     xPos = (float)WINDOW_WIDTH/2;
     yPos = (float)WINDOW_HEIGHT/2;
     sprite.setPosition(xPos, yPos);

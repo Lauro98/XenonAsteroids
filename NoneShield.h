@@ -3,7 +3,6 @@
 #include "DefenceStrategy.h"
 
 class NoneShield: public DefenceStrategy{
-private:
 public:
     NoneShield();
     void addShield() override;

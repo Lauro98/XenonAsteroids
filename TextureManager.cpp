@@ -2,6 +2,8 @@
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
+    loadTexture("alien", "media/alien.png");
+    loadTexture("alien_ammo", "media/alien_ammo.png");
     loadTexture("background", "media/background.jpg");
     loadTexture("commands", "media/commands.png");
     loadTexture("explosion", "media/explosion.png");
@@ -10,6 +12,7 @@ TextureManager::TextureManager() {
     loadTexture("lennon", "media/lennon.png");
     loadTexture("macca", "media/macca.png");
     loadTexture("menu", "media/menu.jpg");
+    loadTexture("path", "media/path.png");
     loadTexture("pause", "media/pause.png");
     loadTexture("projectile","media/projectile.png");
     loadTexture("rock", "media/rock.png");

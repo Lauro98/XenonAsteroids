@@ -10,22 +10,25 @@
 #include "Panel.h"
 #include "State.h"
 #include "Game.h"
+#include "Definitions.h"
+#include "Alien.h"
 
 class GameLoop: public State {
+public:
+    explicit GameLoop(GameDataRef data);
+    ~GameLoop() override;
+    void handleInput() override;
+    void init() override;
+    void update() override;
+    void draw () override;
 private:
-    sf::Clock asteroidsGen;
+    GenTimer genTimer;
+    sf::Clock gameOverTimer;
     std::vector<Entity*> entities;
+    std::vector<Alien*> aliens;
     sf::Sprite background;
     GameDataRef data;
     bool gameOver;
-
-public:
-    GameLoop(GameDataRef data);
-    ~GameLoop() override;
-    void handleInput() override;
-    void init() override ;
-    void update() override ;
-    void draw () override;
 };
 
 #endif

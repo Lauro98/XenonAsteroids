@@ -1,7 +1,6 @@
 #ifndef XENON_STATE_H
 #define XENON_STATE_H
 
-
 class State {
 public:
     virtual ~State() = default;
@@ -11,5 +10,4 @@ public:
     virtual void draw () = 0;
 };
 
-
-#endif //XENON_STATE_H
+#endif

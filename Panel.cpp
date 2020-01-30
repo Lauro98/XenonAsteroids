@@ -43,6 +43,8 @@ int Panel::getScore() {
 }
 
 void Panel::setShieldText(unsigned int value) {
+    if (value >= 0) {
     std::string string = std::to_string(value);
     shieldText.setString(string);
+    }
 }

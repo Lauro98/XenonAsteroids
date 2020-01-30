@@ -8,23 +8,27 @@
 
 GameLoop::GameLoop(GameDataRef dataRef) {
     data = std::move(dataRef);
-    data->panel = {data->font, data->textureManager};
-    gameOver = false;
-    data->soundManager.playGameTheme();
 }
 
 GameLoop::~GameLoop() {
     int n = entities.size();
     for (int i = 0; i < n; i++)
         delete(entities.at(i));
+    n = aliens.size();
+    for (int i = 0; i < n; i++)
+        delete(aliens.at(i));
 }
 
 void GameLoop::init() {
     for (int i = 0; i < INITIAL_ASTEROIDS; i++) {
         entities.emplace_back(new Asteroid(data->textureManager));
     }
+    data->panel = {data->font, data->textureManager};
+    gameOver = false;
+    data->soundManager.playGameTheme();
     background.setTexture(data->textureManager.getTextureFromAtlas("background"));
     background.setOrigin(0,0);
+    genTimer.init();
 }
 
 void GameLoop::handleInput() {
@@ -69,24 +73,47 @@ void GameLoop::handleInput() {
 }
 
 void GameLoop::update() {
+    genTimer.update();
     data->panel.setShieldText(data->spaceship.getDefenceStrategy()->getShieldLife());
-    for (int i = 0; i < entities.size(); i++) {
-        entities.at(i)->update();
-        if (!entities.at(i)->isAlive()) {
-            entities.erase(entities.begin() + i);
+    for (int k = 0; k < entities.size(); k++) {
+        entities.at(k)->update();
+        if (!entities.at(k)->isAlive()) {
+            entities.erase(entities.begin() + k);
         }
     }
     if(!gameOver){
-        if (asteroidsGen.getElapsedTime().asSeconds() >= ASTEROID_GEN_TIME) {
+        if (genTimer.getAsteroidGenTime() >= ASTEROID_SPAWN) {
             entities.emplace_back(new Asteroid(data->textureManager));
             data->panel.addPoints(POINT_BONUS);
-            asteroidsGen.restart();
+            genTimer.resetAsteroidGen();
+        }
+        if (genTimer.getAlienGenTime() >= ALIEN_SPAWN) {
+            aliens.emplace_back(new Alien(data->textureManager));
+            data->panel.addPoints(POINT_BONUS);
+            genTimer.resetAlienGen();
+        }
+        for (int k = 0; k < aliens.size(); k++) {
+            aliens.at(k)->update(data-> textureManager, data->spaceship, entities, data->soundManager);
+            if (!aliens.at(k)->isAlive()) {
+                aliens.erase(aliens.begin() + k);
+            }
         }
         if (data->spaceship.isShooting()) {
-            entities.emplace_back(new Projectile(data->textureManager, data->spaceship));
+            entities.emplace_back(new Projectile(data->textureManager, data->spaceship.getSprite(), true));
             data->panel.addPoints(POINT_MALUS);
         }
         for (int i = 0; i < entities.size(); i++) {
+            for(int j = 0; j < aliens.size(); j++){
+                if(entities.at(i)->getType() == EntityType::projectile){
+                    if(Collision::PixelPerfectTest(entities.at(i)->getSprite(), aliens.at(j)->getSprite())){
+                        entities.emplace_back(new Explosion(data->textureManager, *aliens.at(j)));
+                        data->soundManager.playExplosionSound();
+                        entities.at(i)->terminate();
+                        aliens.at(j)->terminate();
+                        data->panel.addPoints(ALIEN_EXPL);
+                    }
+                }
+            }
             for (int j = 0; j < entities.size(); j++) {
                 if (entities.at(i)->getType() == EntityType::projectile &&
                     entities.at(j)->getType() == EntityType::asteroid) {
@@ -117,20 +144,23 @@ void GameLoop::update() {
                 (data->spaceship.getDefenceStrategy()->getType() != none
                  && !data->spaceship.getDefenceStrategy()->isVisible())) {
                 if (entities.at(i)->getType() == EntityType::asteroid ||
-                    entities.at(i)->getType() == EntityType::rubble) {
+                    entities.at(i)->getType() == EntityType::rubble ||
+                    entities.at(i)->getType() == EntityType::alien_ammo) {
                     if (Collision::PixelPerfectTest(entities.at(i)->getSprite(), data->spaceship.getSprite()) ||
                         Collision::PixelPerfectTest(entities.at(i)->getSprite(),
                                                     data->spaceship.getDefenceStrategy()->getShieldSprite())) {
                         data->soundManager.pauseBoostSound();
                         data->soundManager.playExplosionSound();
                         entities.emplace_back(new Explosion(data->textureManager, data->spaceship));
+                        gameOverTimer.restart();
                         gameOver = true;
                     }
                 }
             }
             if (data->spaceship.getDefenceStrategy()->getType() != none &&
                 data->spaceship.getDefenceStrategy()->isVisible() &&
-                entities.at(i)->getType() != EntityType::projectile) {
+                entities.at(i)->getType() != EntityType::projectile &&
+                entities.at(i)->getType() != EntityType::alien) {
                 if (Collision::PixelPerfectTest(entities.at(i)->getSprite(),
                                                 data->spaceship.getDefenceStrategy()->getShieldSprite())) {
                     if (entities.at(i)->getType() == EntityType::asteroid) {
@@ -146,7 +176,7 @@ void GameLoop::update() {
             }
         }
     }
-    if (gameOver && entities.at(entities.size()-1)->getAnimation().isAnimEnded()) {
+    if (gameOver && gameOverTimer.getElapsedTime().asSeconds() >= TIME_BEFORE_GAMEOVER) {
         data->stateManager.addState(StateRef(new GameOver(data)), true);
     }
 }
@@ -158,9 +188,14 @@ void GameLoop::draw() {
         data->spaceship.draw(data->renderWindow);
     if(data->spaceship.getDefenceStrategy()->getType() != none && data->spaceship.getDefenceStrategy()->isVisible() && !gameOver)
         data->spaceship.getDefenceStrategy()->draw(data->spaceship.getSprite(), data->renderWindow);
-    for(int i = 0; i < entities.size(); i++)
-        if(entities.at(i)->isAlive())
+    for(int i = 0; i < entities.size(); i++) {
+        if (entities.at(i)->isAlive())
             entities.at(i)->draw(data->renderWindow);
+    }
+    for(int i = 0; i < aliens.size(); i++) {
+        if (aliens.at(i)->isAlive())
+            aliens.at(i)->draw(data->renderWindow);
+    }
     data->panel.draw(data->renderWindow);
     data->renderWindow.display();
 }

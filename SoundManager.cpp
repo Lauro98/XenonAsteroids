@@ -111,7 +111,7 @@ void SoundManager::fxVolumeUp() {
 }
 
 void SoundManager::fxVolumeDown() {
-    if(fxVolume-1>=0) {
+    if(fxVolume > 0) {
         playNavigationSound();
         fxVolume--;
         for (const auto &i : soundAtlas)
@@ -134,7 +134,7 @@ void SoundManager::musicVolumeUp() {
 }
 
 void SoundManager::musicVolumeDown() {
-    if(musicVolume-1>=0) {
+    if(musicVolume > 0) {
         playNavigationSound();
         musicVolume--;
         mainTheme.setVolume((float)musicVolume);

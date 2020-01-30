@@ -3,9 +3,6 @@
 #include "DefenceStrategy.h"
 
 class TimeShield: public DefenceStrategy {
-private:
-    sf::Clock clock;
-    int duration;
 public:
     explicit TimeShield(sf::Sprite& sprite);
     void addShield() override;
@@ -13,6 +10,9 @@ public:
     void update() override;
     void activateShield() override;
     unsigned int getShieldLife() override;
+private:
+    sf::Clock clock;
+    int duration;
 };
 
 #endif

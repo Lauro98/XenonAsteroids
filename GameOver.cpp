@@ -4,8 +4,7 @@
 #include "MainMenu.h"
 #include "Definitions.h"
 
-GameOver::GameOver(GameDataRef dataRef): data(std::move(dataRef)){
-}
+GameOver::GameOver(GameDataRef dataRef): data(std::move(dataRef)){}
 
 void GameOver::init() {
     data->soundManager.playGameOverSound();

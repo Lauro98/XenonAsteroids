@@ -5,8 +5,7 @@
 #include <utility>
 #include <iostream>
 
-MainMenu::MainMenu(GameDataRef dataRef): data(std::move(dataRef)){
-}
+MainMenu::MainMenu(GameDataRef dataRef): data(std::move(dataRef)){}
 
 void MainMenu::init() {
     data->soundManager.playMainTheme();
@@ -23,7 +22,6 @@ void MainMenu::init() {
     text[2].setString("Exit Game");
     text[0].setFillColor(sf::Color::Red);
     selectedItemIndex = 0;
-
 }
 
 void MainMenu::handleInput() {
@@ -59,9 +57,7 @@ void MainMenu::handleInput() {
     }
 }
 
-void MainMenu::update() {
-
-}
+void MainMenu::update() { }
 
 void MainMenu::draw() {
     data->renderWindow.clear();

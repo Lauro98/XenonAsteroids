@@ -31,34 +31,28 @@ Asteroid::Asteroid(TextureManager& textureManager) {
     angle = (float)distAngle(gen);
     sprite.setTexture(textureManager.getTextureFromAtlas("rock"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
-
     std::uniform_int_distribution<float> distSpeedX(-4,4);
     std::uniform_int_distribution<float> distSpeedY(-4,4);
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
-
     type = EntityType::asteroid;
 }
 
 Asteroid::Asteroid(TextureManager &textureManager, Entity &asteroid) {
     alive = true;
     angle = 0;
-
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_int_distribution<float> distSpeedX(-3,5);
     std::uniform_int_distribution<float> distSpeedY(-3,5);
-
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
     sprite.setTexture(textureManager.getTextureFromAtlas("rock_small"));
     animation = {sprite, 0, 0, ROCK_SPRITE_WIDTH, ROCK_SPRITE_HEIGTH, ROCK_SPRITESHEET, ROCK_ANIM_SPEED};
-
     xPos = asteroid.getSprite().getPosition().x;
     yPos = asteroid.getSprite().getPosition().y;
     dx = (float)(distSpeedX(gen));
     dy = (float)(distSpeedY(gen));
-
     type = EntityType::rubble;
 }
 

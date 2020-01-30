@@ -6,8 +6,6 @@ StateManager::StateManager() {
     removing = false;
 }
 
-StateManager::~StateManager() = default;
-
 void StateManager::addState(StateRef newState, bool replacing) {
     this->newState = std::move (newState);
     this->replacing = replacing;

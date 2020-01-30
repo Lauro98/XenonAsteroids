@@ -5,11 +5,6 @@
 #include "Panel.h"
 
 class Pause: public State {
-private:
-    GameDataRef data;
-    sf::Sprite background;
-    sf::Text text[5];
-    int selectedItemIndex;
 public:
     explicit Pause(GameDataRef data);
     void moveUp();
@@ -18,6 +13,11 @@ public:
     void handleInput() override;
     void update() override ;
     void draw () override;
+private:
+    GameDataRef data;
+    sf::Sprite background;
+    sf::Text text[5];
+    int selectedItemIndex;
 };
 
 #endif

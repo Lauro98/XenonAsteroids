@@ -8,7 +8,7 @@ sf::Sprite &DefenceStrategy::getShieldSprite() {
     return shield;
 }
 
-void DefenceStrategy::draw(sf::Sprite sprite, sf::RenderWindow &renderWindow) {
+void DefenceStrategy::draw(sf::Sprite& sprite, sf::RenderWindow &renderWindow) {
     shield.setPosition(sprite.getPosition().x - shield.getLocalBounds().width/2, sprite.getPosition().y - shield.getLocalBounds().height/2);
     renderWindow.draw(shield);
 }
