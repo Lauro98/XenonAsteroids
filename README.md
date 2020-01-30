@@ -48,6 +48,7 @@ The player will choose one from the four different (both in graphic and statisti
 
 The player will have to fly in a slice of space while dangerous asteroids will spawn and go across the screen.
 Shooting asteroids will give the player some point that are spendable to buy shields that will protect the player when veers are not possible.
+
 ![Game play 1](ReadMe_images/gameplay1.gif)
 
 ![Game play 2](ReadMe_images/gameplay2.gif)
