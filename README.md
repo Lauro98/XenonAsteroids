@@ -35,7 +35,7 @@ Check [here](https://hackr.io/blog/cpp-ide) for some C++ compatible IDE for your
     
 ### Get the code
 Some IDEs grant you the possibility to pull the code from a repository source. Check if your IDE can too, and also how to do it.
-The link of the project, if you are as lazy as me, its this one:  https://github.com/Lauro98/XenonAsteroids.git
+The link of the project, if you are as lazy as me, it's this one:  https://github.com/Lauro98/XenonAsteroids.git
 
 ## The Game
 ### Commands
